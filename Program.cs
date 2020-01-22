@@ -39,13 +39,17 @@ namespace Sotrudniki
                 g[p.BossId, p.Id] = 1;
 
             }            
+            using (StreamWriter sw = new StreamWriter(outputPath, false, System.Text.Encoding.Default))
+                {
+                    sw.Write();
+                }
             dfs(boss.Id, 0);
             void dfs(int v, int l)
             {
 
                 using (StreamWriter sw = new StreamWriter(outputPath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(new string('-', l) + persons[v].Name);
+                    sw.WriteLine(String.Concat(Enumerable.Repeat("---", l)) + persons[v].Name);
                 }
                 visited[v] = true;
                 for (int i = 0; i < n; i++)
