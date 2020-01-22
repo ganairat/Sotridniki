@@ -10,12 +10,15 @@ namespace Sotrudniki
 {
     class Program
     {
-        static void Main(string[] args)
+        static string inputPath = "../../input.txt";
+        static  string outputPath = "../../output.txt";
+        static bool[] visited;
+        static Person[] persons;
+        static int[,] g;
+        public static void Main(string[] args)
         {
-            string inputPath = "../../input.txt";
-            string outputPath = "../../output.txt";
             int n = 0;
-            Person boss = new Person{ Id = 0, BossId=0, Name=""};
+            Person boss = new Person { Id = 0, BossId = 0, Name = "" };
             List<Person> people = new List<Person>();
             using (StreamReader sr = new StreamReader(inputPath, System.Text.Encoding.Default))
             {
@@ -30,21 +33,23 @@ namespace Sotrudniki
                 }
             }
             n++;
-            int[,] g = new int[n, n];
-            bool[] visited = new bool[n];
-            Person[] persons = new Person[n];
-            foreach(var p in people)
+            g = new int[n, n];
+            visited = new bool[n];
+            persons = new Person[n];
+            foreach (var p in people)
             {
                 persons[p.Id] = p;
                 g[p.BossId, p.Id] = 1;
 
-            }            
+            }
             using (StreamWriter sw = new StreamWriter(outputPath, false, System.Text.Encoding.Default))
-                {
-                    sw.Write("");
-                }
-            dfs(boss.Id, 0);
-            void dfs(int v, int l)
+            {
+                sw.Write("");
+            }
+            dfs(boss.Id, 0, n);
+
+        }
+       public static void dfs(int v, int l, int n)
             {
 
                 using (StreamWriter sw = new StreamWriter(outputPath, true, System.Text.Encoding.Default))
@@ -56,11 +61,9 @@ namespace Sotrudniki
                 {
                     if (g[v, i] == 1 && !visited[i])
                     {
-                        dfs(i, l + 1);
+                        dfs(i, l + 1, n);
                     }
                 }
             }
-
-        }
     }
 }
