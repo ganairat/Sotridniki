@@ -41,7 +41,7 @@ namespace Sotrudniki
             }            
             using (StreamWriter sw = new StreamWriter(outputPath, false, System.Text.Encoding.Default))
                 {
-                    sw.Write();
+                    sw.Write("");
                 }
             dfs(boss.Id, 0);
             void dfs(int v, int l)
